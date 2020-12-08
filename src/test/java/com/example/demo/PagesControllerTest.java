@@ -25,4 +25,50 @@ public class PagesControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string("Hello World"));
     }
+
+    @Test
+    public void testMathPI() throws Exception {
+        RequestBuilder request = MockMvcRequestBuilders.get("/math/pi");
+
+        this.mvc.perform(request).andExpect(content().string("3.141592653589793"));
+    }
+
+    @Test
+    public void testMathCalculationsWithThreeParams() throws Exception {
+        RequestBuilder addRequest = MockMvcRequestBuilders.get("/math/calculate?x=4&y=6&ops=add");
+        this.mvc.perform(addRequest)
+                .andExpect(status().isOk())
+                .andExpect(content().string("4 + 6 = 10"));
+
+        RequestBuilder multiplyRequest = MockMvcRequestBuilders.get("/math/calculate?x=4&y=6&ops=multiply");
+        this.mvc.perform(multiplyRequest)
+                .andExpect(status().isOk())
+                .andExpect(content().string("4 * 6 = 24"));
+
+        RequestBuilder subtractRequest = MockMvcRequestBuilders.get("/math/calculate?x=4&y=6&ops=subtract");
+        this.mvc.perform(subtractRequest)
+                .andExpect(status().isOk())
+                .andExpect(content().string("4 - 6 = -2"));
+
+        RequestBuilder divideRequest = MockMvcRequestBuilders.get("/math/calculate?x=30&y=5&ops=divide");
+        this.mvc.perform(divideRequest)
+                .andExpect(status().isOk())
+                .andExpect(content().string("30 / 5 = 6"));
+
+        RequestBuilder defaultRequest = MockMvcRequestBuilders.get("/math/calculate?x=30&y=5");
+        this.mvc.perform(defaultRequest)
+                .andExpect(status().isOk())
+                .andExpect(content().string("30 + 5 = 35"));
+
+    }
+
+    @Test
+    public void testSummation() throws Exception {
+        RequestBuilder sumRequest = MockMvcRequestBuilders.post("/math/sum?n=4&n=5&n=6");
+        this.mvc.perform(sumRequest)
+                .andExpect(status().isOk())
+                .andExpect(content().string("4 + 5 + 6 = 15"));
+    }
+
+
 }
