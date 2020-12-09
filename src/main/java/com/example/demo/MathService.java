@@ -1,10 +1,14 @@
 package com.example.demo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MathService {
     private int x;
     private int y;
     private String ops = "add";
     private String answer = "";
+    private int[] n;
 
     public int getX() {
         return x;
@@ -44,5 +48,25 @@ public class MathService {
         }
 
         return "INVALID INPUT";
+    }
+
+    public int[] getN(){
+        return n;
+    }
+
+    public void setN(int[] n){
+        this.n =n;
+    }
+
+    public String doSum(){
+        int sum = 0;
+        List<String> listNums = new ArrayList<>();
+
+        for(int i = 0; i < n.length; i++){
+            sum += n[i];
+            listNums.add(String.valueOf(n[i]));
+        }
+        return String.join(" + ", listNums) + " = " + sum;
+
     }
 }

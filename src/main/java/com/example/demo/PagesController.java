@@ -42,16 +42,22 @@ public class PagesController {
 //    }
 
     @PostMapping("/math/sum")
-    public String sumParams(@RequestParam Integer[] n){
-        int sum = 0;
-        List<String> listNums = new ArrayList<>();
-
-        for(int i = 0; i < n.length; i++){
-            sum += n[i];
-            listNums.add(String.valueOf(n[i]));
+        public String sum(MathService math){
+            return math.doSum();
         }
-        return String.join(" + ", listNums) + " = " + sum;
-    }
+
+
+//    @PostMapping("/math/sum")
+//    public String sumParams(@RequestParam Integer[] n){
+//        int sum = 0;
+//        List<String> listNums = new ArrayList<>();
+//
+//        for(int i = 0; i < n.length; i++){
+//            sum += n[i];
+//            listNums.add(String.valueOf(n[i]));
+//        }
+//        return String.join(" + ", listNums) + " = " + sum;
+//    }
 
     @RequestMapping("math/volume/{num1}/{num2}/{num3}")
     public String getVolume(@PathVariable int num1, @PathVariable int num2, @PathVariable int num3){
