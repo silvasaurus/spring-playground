@@ -1,9 +1,6 @@
 package com.example.demo;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +46,12 @@ public class PagesController {
             listNums.add(String.valueOf(n[i]));
         }
         return String.join(" + ", listNums) + " = " + sum;
+    }
+
+    @RequestMapping("math/volume/{num1}/{num2}/{num3}")
+    public String getVolume(@PathVariable int num1, @PathVariable int num2, @PathVariable int num3){
+        int vol = num1 * num2 * num3;
+        return String.format("The volume of a %dx%dx%d rectangle is %d", num1, num2, num3, vol);
     }
 
 }
