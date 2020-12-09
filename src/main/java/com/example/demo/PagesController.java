@@ -54,4 +54,20 @@ public class PagesController {
         return String.format("The volume of a %dx%dx%d rectangle is %d", num1, num2, num3, vol);
     }
 
+    @PostMapping("/math/area")
+    public double getArea(@RequestParam String type,
+                          @RequestParam(value = "radius", required = false, defaultValue = "1") int radius,
+                          @RequestParam(required = false, defaultValue = "1") int width,
+                          @RequestParam(required = false, defaultValue = "1") int height) {
+
+        if(type.equalsIgnoreCase("circle")){
+            return Math.PI * Math.pow(radius, 2);
+        } else if (type.equalsIgnoreCase("rectangle")){
+            return width * height;
+        } else
+
+        return 0.0;
+    }
+
+
 }
