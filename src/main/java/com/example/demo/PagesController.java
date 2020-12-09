@@ -24,40 +24,10 @@ public class PagesController {
         return math.doMath();
     }
 
-//    @GetMapping("/math/calculate")
-//    public String calculate(@RequestParam int x, @RequestParam int y,
-//                            @RequestParam(defaultValue = "add") String ops) {
-//        String answer = "";
-//
-//        if (ops.equalsIgnoreCase("add")) {
-//            return answer = String.format("%s + %s = %s", x, y, (x + y));
-//        } else if (ops.equalsIgnoreCase("multiply")) {
-//            return answer = String.format("%s * %s = %s", x, y, (x * y));
-//        } else if (ops.equalsIgnoreCase("subtract")) {
-//            return answer = String.format("%s - %s = %s", x, y, (x - y));
-//        } else if (ops.equalsIgnoreCase("divide")) {
-//            return answer = String.format("%s / %s = %s", x, y, (x / y));
-//        }
-//        return "INVALID Input";
-//    }
-
     @PostMapping("/math/sum")
         public String sum(MathService math){
             return math.doSum();
         }
-
-
-//    @PostMapping("/math/sum")
-//    public String sumParams(@RequestParam Integer[] n){
-//        int sum = 0;
-//        List<String> listNums = new ArrayList<>();
-//
-//        for(int i = 0; i < n.length; i++){
-//            sum += n[i];
-//            listNums.add(String.valueOf(n[i]));
-//        }
-//        return String.join(" + ", listNums) + " = " + sum;
-//    }
 
     @RequestMapping("math/volume/{num1}/{num2}/{num3}")
     public String getVolume(@PathVariable int num1, @PathVariable int num2, @PathVariable int num3){
@@ -66,19 +36,22 @@ public class PagesController {
     }
 
     @PostMapping("/math/area")
-    public double getArea(@RequestParam String type,
-                          @RequestParam(defaultValue = "1") int radius,
-                          @RequestParam(defaultValue = "1") int width,
-                          @RequestParam(defaultValue = "1") int height) {
+    public String getArea(@RequestParam String type,
+                          @RequestParam(defaultValue = "-1") int radius,
+                          @RequestParam(defaultValue = "-1") int width,
+                          @RequestParam(defaultValue = "-1") int height) {
 
         if(type.equalsIgnoreCase("circle")){
-            return Math.PI * Math.pow(radius, 2);
+            if(radius == -1) return "Invalid";
+            double areaCirc = Math.PI * Math.pow(radius, 2);
+            return String.format("Area of a circle with a radius of %s is %.5f", radius, areaCirc);
         } else if (type.equalsIgnoreCase("rectangle")){
-            return width * height;
-        } else
+            if(height == -1 || width == -1) return "Invalid";
+           int areaRec = width * height;
+            return String.format("Area of a %dx%d rectangle is %d", width, height, areaRec);
+        }
 
-        return 0.0;
+        return "I guess you don't want to find the area. Come back when you get your act together 🤡!!!";
     }
-
 
 }
